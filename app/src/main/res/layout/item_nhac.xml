@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginEnd="5dp"
+    android:layout_marginTop="5dp"
+    android:layout_marginStart="5dp"
+
+    android:elevation="8dp">
+
+    <RelativeLayout
+        android:id="@+id/rl1"
+        android:layout_width="wrap_content"
+        android:layout_height="60dp"
+        android:layout_marginBottom="20dp"
+        android:background="#E6E6E6">
+
+        <ImageView
+            android:id="@+id/imgOfSong"
+            android:layout_width="60dp"
+            android:layout_height="match_parent"
+            android:layout_marginRight="18dp"
+
+            android:src="@drawable/ic_baseline_music" />
+
+        <TextView
+            android:id="@+id/txtNameOfSong"
+            android:layout_width="220dp"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/imgOfSong"
+            android:text="Purple Haze"
+            android:textColor="#1B1B1B" />
+
+        <TextView
+            android:id="@+id/txtNameOfSinger"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/txtNameOfSong"
+            android:layout_toRightOf="@+id/imgOfSong"
+            android:text="Jimi Hendrix"
+            android:textColor="#616161" />
+
+        <ImageButton
+            android:id="@+id/btnPlay"
+            android:layout_width="60dp"
+            android:layout_height="50dp"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="10dp"
+            android:layout_toRightOf="@id/txtNameOfSong"
+
+            android:backgroundTint="@color/black"
+            android:src="@android:drawable/ic_media_play" />
+
+    </RelativeLayout>
+
+
+</RelativeLayout>

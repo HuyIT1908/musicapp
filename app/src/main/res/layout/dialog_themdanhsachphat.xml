@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="350dp"
+    android:layout_marginLeft="30dp"
+    android:layout_marginTop="200dp"
+    android:layout_height="250dp">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/purple_500">
+
+        <ImageView
+            android:id="@+id/tb_dsp_1"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="3dp"
+            android:src="@drawable/music1"></ImageView>
+
+        <TextView
+            android:layout_toRightOf="@id/tb_dsp_1"
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:text="Tạo Danh Sách Phát"
+            android:textColor="@color/white"
+            android:textSize="20dp" />
+
+    </RelativeLayout>
+    <ImageView
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="70dp"
+        android:layout_marginLeft="30dp"
+        android:src="@drawable/music">
+
+    </ImageView>
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="180dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="120dp"
+
+        android:layout_marginTop="70dp"
+        android:text="Tên danh sách phát" />
+
+    <EditText
+        android:id="@+id/edTenDanhSachPhat"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="120dp"
+        android:layout_marginTop="90dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="James Wheeler" />
+
+    <Button
+        android:id="@+id/btn_huyThemDanhSach"
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        android:layout_marginLeft="100dp"
+        android:layout_marginTop="200dp"
+        android:backgroundTint="@color/white"
+        android:text="Hủy"
+        android:textAllCaps="false"
+        android:textColor="@color/purple_700"></Button>
+
+    <Button
+        android:id="@+id/btn_ThemDanhSach"
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        android:layout_marginLeft="200dp"
+        android:layout_marginTop="200dp"
+        android:backgroundTint="@color/white"
+        android:text="Thêm"
+        android:textAllCaps="false"
+        android:textColor="@color/purple_700"></Button>
+
+</RelativeLayout>

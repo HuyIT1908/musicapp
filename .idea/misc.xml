@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/Agile/app/src/main/res/layout/activity_home.xml" value="0.1793478260869565" />
+        <entry key="..\:/Agile/app/src/main/res/layout/activity_main.xml" value="0.1793478260869565" />
+        <entry key="..\:/Agile/app/src/main/res/layout/danhsachphat_item.xml" value="0.1793478260869565" />
+        <entry key="..\:/Agile/app/src/main/res/layout/dialog_themdanhsachphat.xml" value="0.1793478260869565" />
+        <entry key="..\:/Agile/app/src/main/res/layout/dialog_xoadanhsachphat.xml" value="0.1793478260869565" />
+        <entry key="..\:/Agile/app/src/main/res/layout/fragment_danh_sach_phat.xml" value="0.1793478260869565" />
+        <entry key="..\:/Agile/app/src/main/res/layout/fragment_home.xml" value="0.1793478260869565" />
+        <entry key="..\:/Agile/app/src/main/res/layout/fragment_tim_kiem.xml" value="0.1793478260869565" />
+        <entry key="..\:/Agile/app/src/main/res/menu/home.xml" value="0.27447916666666666" />
+        <entry key="..\:/download_________coc_coc/idm/giai_nen/Agile/app/src/main/res/drawable-v24/ic_launcher_background.xml" value="0.15" />
+        <entry key="..\:/download_________coc_coc/idm/giai_nen/Agile/app/src/main/res/layout/activity_bai_hat_in_dspactivity.xml" value="0.176" />
+        <entry key="..\:/download_________coc_coc/idm/giai_nen/Agile/app/src/main/res/layout/activity_home.xml" value="0.16052631578947368" />
+        <entry key="..\:/download_________coc_coc/idm/giai_nen/Agile/app/src/main/res/layout/activity_play.xml" value="0.176" />
+        <entry key="..\:/download_________coc_coc/idm/giai_nen/Agile/app/src/main/res/layout/add_bh_dsp_dialog.xml" value="0.264" />
+        <entry key="..\:/download_________coc_coc/idm/giai_nen/Agile/app/src/main/res/layout/danhsachphat_item.xml" value="0.16052631578947368" />
+        <entry key="..\:/download_________coc_coc/idm/giai_nen/Agile/app/src/main/res/layout/dialog_themdanhsachphat.xml" value="0.2" />
+        <entry key="..\:/download_________coc_coc/idm/giai_nen/Agile/app/src/main/res/layout/fragment_danh_sach_phat.xml" value="0.152" />
+        <entry key="..\:/download_________coc_coc/idm/giai_nen/Agile/app/src/main/res/layout/fragment_home.xml" value="0.16052631578947368" />
+        <entry key="..\:/download_________coc_coc/idm/giai_nen/Agile/app/src/main/res/layout/fragment_tim_kiem.xml" value="0.1133879781420765" />
+        <entry key="..\:/download_________coc_coc/idm/giai_nen/Agile/app/src/main/res/layout/item_bh_home.xml" value="0.1133879781420765" />
+        <entry key="..\:/download_________coc_coc/idm/giai_nen/Agile/app/src/main/res/layout/item_nhac.xml" value="0.16052631578947368" />
+        <entry key="..\:/download_________coc_coc/idm/giai_nen/Agile/app/src/main/res/layout/item_nhac_bh_dsp.xml" value="0.152" />
+        <entry key="..\:/download_________coc_coc/idm/giai_nen/Agile/app/src/main/res/layout/spn_iem.xml" value="0.176" />
+        <entry key="..\:/download_________coc_coc/idm/giai_nen/Agile/app/src/main/res/layout/spn_item.xml" value="0.1325136612021858" />
+        <entry key="..\:/download_________coc_coc/idm/giai_nen/Agile/app/src/main/res/menu/home.xml" value="0.16052631578947368" />
+      </map>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="11" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/build/classes" />
+  </component>
+  <component name="ProjectType">
+    <option name="id" value="Android" />
+  </component>
+</project>
