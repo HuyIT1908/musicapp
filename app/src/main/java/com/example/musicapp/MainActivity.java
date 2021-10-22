@@ -1,17 +1,14 @@
 package com.example.musicapp;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
-
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Handler;
-import android.widget.Toast;
 
-import com.example.musicapp.HomeActivity;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -24,18 +21,26 @@ public class MainActivity extends AppCompatActivity {
 
         //        xin quyền truy cập
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE)
-                != PackageManager.PERMISSION_GRANTED) {
+                != PackageManager.PERMISSION_GRANTED
+         || ContextCompat.checkSelfPermission(this, Manifest.permission.RECORD_AUDIO)
+                != PackageManager.PERMISSION_GRANTED ) {
             // Xin quyền truy cập ảnh trong máy
             ActivityCompat.requestPermissions(this,
-                    new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
+                    new String[]{
+                            Manifest.permission.READ_EXTERNAL_STORAGE,
+                            Manifest.permission.RECORD_AUDIO
+                    },
                     999);
             System.exit(0);
         } else if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE)
-                == PackageManager.PERMISSION_GRANTED){
+                == PackageManager.PERMISSION_GRANTED
+        && ContextCompat.checkSelfPermission(this, Manifest.permission.RECORD_AUDIO)
+                == PackageManager.PERMISSION_GRANTED ){
 
             chuyen_Home();
         }
-
+//        runtimePermission();
+//        chuyen_Home();
     }
 
 //    @Override
@@ -62,18 +67,34 @@ public class MainActivity extends AppCompatActivity {
 //    }
 
     private void chuyen_Home(){
-//        handler.postDelayed(new Runnable() {
-//            @Override
-//            public void run() {
-//
-//                Intent intent = new Intent(MainActivity.this , HomeActivity.class);
-//                startActivity(intent);
-//                finish();
-//            }
-//        }, 1000);
-        Intent intent = new Intent(MainActivity.this , HomeActivity.class);
-        startActivity(intent);
-        finish();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+
+                Intent intent = new Intent(MainActivity.this , HomeActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        }, 3000);
+//        Intent intent = new Intent(MainActivity.this , HomeActivity.class);
+//        startActivity(intent);
+//        finish();
     }
+
+//    public void runtimePermission(){
+//        Dexter.withContext(MainActivity.this).withPermissions(Manifest.permission.READ_EXTERNAL_STORAGE,Manifest.permission.RECORD_AUDIO)
+//                .withListener(new MultiplePermissionsListener() {
+//                    @Override
+//                    public void onPermissionsChecked(MultiplePermissionsReport multiplePermissionsReport) {
+//                        chuyen_Home();
+//                    }
+//
+//                    @Override
+//                    public void onPermissionRationaleShouldBeShown(List<PermissionRequest> list, PermissionToken permissionToken) {
+//
+//                    }
+//                }).check();
+//
+//    }
 
 }

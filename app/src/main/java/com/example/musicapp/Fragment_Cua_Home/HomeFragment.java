@@ -1,6 +1,5 @@
 package com.example.musicapp.Fragment_Cua_Home;
 
-import android.Manifest;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -20,11 +19,6 @@ import com.example.musicapp.DAO.BaiHatDAO;
 import com.example.musicapp.Models.BaiHat;
 import com.example.musicapp.PlayActivity;
 import com.example.musicapp.R;
-import com.karumi.dexter.Dexter;
-import com.karumi.dexter.MultiplePermissionsReport;
-import com.karumi.dexter.PermissionToken;
-import com.karumi.dexter.listener.PermissionRequest;
-import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -91,7 +85,10 @@ public class HomeFragment extends Fragment {
         listView = view.findViewById(R.id.listViewSong);
 //        huy
         baiHatDAO = new BaiHatDAO(getContext());
-        runtimePermission();
+
+        //        xin quyền truy cập
+//        runtimePermission();
+        hien_nhac();
 
         return view;
     }
@@ -204,20 +201,38 @@ public class HomeFragment extends Fragment {
         super.onDestroyView();
     }
 
-    public void runtimePermission(){
-        Dexter.withContext(getActivity()).withPermissions(Manifest.permission.READ_EXTERNAL_STORAGE,Manifest.permission.RECORD_AUDIO)
-                .withListener(new MultiplePermissionsListener() {
-                    @Override
-                    public void onPermissionsChecked(MultiplePermissionsReport multiplePermissionsReport) {
-                        hien_nhac();
-                    }
-
-                    @Override
-                    public void onPermissionRationaleShouldBeShown(List<PermissionRequest> list, PermissionToken permissionToken) {
-
-                    }
-                }).check();
-
-    }
+//    public void runtimePermission(){
+//        Dexter.withContext(getActivity())
+//                .withPermissions(
+//                        Manifest.permission.READ_EXTERNAL_STORAGE,
+//                        Manifest.permission.RECORD_AUDIO)
+//                .withListener(new MultiplePermissionsListener() {
+//                    @Override
+//                    public void onPermissionsChecked(MultiplePermissionsReport multiplePermissionsReport) {
+////                        kiểm tra xem tất cả các quyền đã được cấp chưa
+//                        if (multiplePermissionsReport.areAllPermissionsGranted()) {
+//                            hien_nhac();
+//                        }
+////                      kiểm tra sự từ chối vĩnh viễn đối với bất kỳ sự cho phép nào
+//                        if (multiplePermissionsReport.isAnyPermissionPermanentlyDenied()) {
+//                            // quyền bị từ chối liên tục, hãy điều hướng người dùng đến cài đặt ứng dụng
+//                            System.exit(0);
+//                        }
+//                    }
+//
+//                    @Override
+//                    public void onPermissionRationaleShouldBeShown(List<PermissionRequest> list, PermissionToken permissionToken) {
+//
+//                    }
+//                })
+//                .withErrorListener(new PermissionRequestErrorListener() {
+//                    @Override
+//                    public void onError(DexterError dexterError) {
+//                        System.exit(0);
+//                    }
+//                })
+//                .check();
+//
+//    }
 
 }
