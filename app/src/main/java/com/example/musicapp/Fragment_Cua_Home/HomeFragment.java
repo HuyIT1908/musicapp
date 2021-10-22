@@ -121,7 +121,6 @@ public class HomeFragment extends Fragment {
             ten_bai_hat.add( mySongs.get(i).getName().toString().replace(".mp3", "") );
         }
 //        Collections.reverse(Arrays.asList(items));
-
         CustomAdapter customAdapter = new CustomAdapter();
         listView.setAdapter(customAdapter);
 
