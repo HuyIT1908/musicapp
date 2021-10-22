@@ -1,7 +1,6 @@
 package com.example.musicapp.Fragment_Cua_Home;
 
 import android.Manifest;
-import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -16,18 +15,19 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.example.musicapp.DAO.BaiHatDAO;
-import com.example.musicapp.MainActivity;
 import com.example.musicapp.Models.BaiHat;
 import com.example.musicapp.PlayActivity;
 import com.example.musicapp.R;
-import com.google.android.gms.common.util.ArrayUtils;
+import com.karumi.dexter.Dexter;
+import com.karumi.dexter.MultiplePermissionsReport;
+import com.karumi.dexter.PermissionToken;
+import com.karumi.dexter.listener.PermissionRequest;
+import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -91,7 +91,7 @@ public class HomeFragment extends Fragment {
         listView = view.findViewById(R.id.listViewSong);
 //        huy
         baiHatDAO = new BaiHatDAO(getContext());
-        hien_nhac();
+        runtimePermission();
 
         return view;
     }
@@ -202,6 +202,22 @@ public class HomeFragment extends Fragment {
     public void onDestroyView() {
 
         super.onDestroyView();
+    }
+
+    public void runtimePermission(){
+        Dexter.withContext(getActivity()).withPermissions(Manifest.permission.READ_EXTERNAL_STORAGE,Manifest.permission.RECORD_AUDIO)
+                .withListener(new MultiplePermissionsListener() {
+                    @Override
+                    public void onPermissionsChecked(MultiplePermissionsReport multiplePermissionsReport) {
+                        hien_nhac();
+                    }
+
+                    @Override
+                    public void onPermissionRationaleShouldBeShown(List<PermissionRequest> list, PermissionToken permissionToken) {
+
+                    }
+                }).check();
+
     }
 
 }

@@ -21,6 +21,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.musicapp.DAO.DanhSachChiTietDAO;
+import com.gauravk.audiovisualizer.visualizer.BarVisualizer;
 
 import java.io.File;
 import java.text.DecimalFormat;
@@ -36,7 +37,7 @@ public class PlayActivity extends AppCompatActivity {
     Button btnplay, btnnexxt, btnprev, btnff, btnfr;
     TextView txtsname, txtsstart, txtsstop;
     SeekBar seekmusic;
-    //    BarVisualizer visualizer;
+    BarVisualizer visualizer;
     ImageView imageView;
 
     String sname;
@@ -61,9 +62,9 @@ public class PlayActivity extends AppCompatActivity {
 
     @Override
     protected void onDestroy() {
-//        if(visualizer != null){
-//            visualizer.release();
-//        }
+        if(visualizer != null){
+            visualizer.release();
+        }
         super.onDestroy();
     }
 
@@ -86,7 +87,7 @@ public class PlayActivity extends AppCompatActivity {
         txtsstart = findViewById(R.id.txtsstart);
         txtsstop = findViewById(R.id.txtsstop);
         seekmusic = findViewById(R.id.seekbar);
-//        visualizer = findViewById(R.id.blast);
+        visualizer = findViewById(R.id.blast);
         imageView = findViewById(R.id.imgeview);
         items = new ArrayList<>();
         list_Ten_BH = new ArrayList<>();
@@ -103,13 +104,7 @@ public class PlayActivity extends AppCompatActivity {
 
         List<File> fileList = new ArrayList<>();
         List<File> ten_moi = new ArrayList<>();
-//        for (int i = 0; i < mySongs.size(); i++) {
-//            String ten = mySongs.get(i).getName().toString().replace(".mp3", "");
-//
-//            Log.e("-------------------" , "......... " + ten + "\n" +
-//            + fileList.size() + "\n" );
-//
-//        }
+
         int dem = 0;
 //        Collections.reverse(list_Ten_BH);
         for (File i : mySongs) {
@@ -118,22 +113,18 @@ public class PlayActivity extends AppCompatActivity {
 //                    + dem + "\n" );
             dem++;
             for (String k : list_Ten_BH) {
-                if (ten.equals( k ) ) {
+                if (ten.equals(k)) {
                     fileList.add(i);
                 }
             }
         }
-//        dem = 0;
+
         Collections.reverse(fileList);
-//        for (String i : list_Ten_BH) {
-//            if ( i.equals(fileList.get(dem).getName()) ){
-//                ten_moi.add(k);
-//            }
+
+//        for (File i: fileList){
+//            Log.e("----------------", " ................. " + "\n" + i.getName()
+//                    + " --- " + fileList.size() + "\n" + list_Ten_BH.size());
 //        }
-        for (File i: fileList){
-            Log.e("----------------", " ................. " + "\n" + i.getName()
-                    + " --- " + fileList.size() + "\n" + list_Ten_BH.size());
-        }
         mySongs.clear();
         mySongs.addAll(fileList);
 
@@ -152,35 +143,7 @@ public class PlayActivity extends AppCompatActivity {
         btnnexxt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mediaPlayer.stop();
-                mediaPlayer.release();
-                if ( position == (mySongs.size() - 1) ){
-                    position = 0;
-                } else {
-                    position = ((position + 1) % mySongs.size());
-                }
-
-                Uri u = Uri.parse(mySongs.get(position).toString());
-                mediaPlayer = MediaPlayer.create(getApplicationContext(), u);
-
-                sname = mySongs.get(position).getName();
-                txtsname.setText(sname);
-
-                mediaPlayer.start();
-                su_kien();
-
-                btnplay.setBackgroundResource(R.drawable.icon_pause);
-                startAnimation(imageView);
-//                tg kt bh
-                txtsstop.setText(convert_TIME(mediaPlayer.getDuration()));
-                seekmusic.setMax(mediaPlayer.getDuration());
-                seekmusic.setProgress(0);
-
-                int audiosessionId = mediaPlayer.getAudioSessionId();
-
-                if (audiosessionId != -1) {
-//                    visualizer.setAudioSessionId(audiosessionId);
-                }
+                next_BH();
             }
         });
 
@@ -266,7 +229,7 @@ public class PlayActivity extends AppCompatActivity {
         int audiosessionId = mediaPlayer.getAudioSessionId();
 
         if (audiosessionId != -1) {
-//            visualizer.setAudioSessionId(audiosessionId);
+            visualizer.setAudioSessionId(audiosessionId);
         }
 
         btnprev.setOnClickListener(new View.OnClickListener() {
@@ -276,7 +239,7 @@ public class PlayActivity extends AppCompatActivity {
                 mediaPlayer.stop();
                 mediaPlayer.release();
 
-                if (position == 0){
+                if (position == 0) {
                     position = mySongs.size() - 1;
                 } else {
                     position = ((position - 1) < 0) ? (mySongs.size() - 1) : (position - 1);
@@ -302,7 +265,7 @@ public class PlayActivity extends AppCompatActivity {
                 int audiosessionId = mediaPlayer.getAudioSessionId();
 
                 if (audiosessionId != -1) {
-//                    visualizer.setAudioSessionId(audiosessionId);
+                    visualizer.setAudioSessionId(audiosessionId);
                 }
             }
         });
@@ -313,9 +276,13 @@ public class PlayActivity extends AppCompatActivity {
                 if (ngau_nhien == true) {
                     Toast.makeText(getApplicationContext(), "Đã tắt chế độ ngẫu nhiên"
                             , Toast.LENGTH_SHORT).show();
+
                     ngau_nhien = false;
+                    lap_lai = false;
                 } else if (ngau_nhien == false) {
+
                     ngau_nhien = true;
+                    lap_lai = false;
                     Toast.makeText(getApplicationContext(), "Đã bật chế độ ngẫu nhiên"
                             , Toast.LENGTH_SHORT).show();
                 }
@@ -368,9 +335,13 @@ public class PlayActivity extends AppCompatActivity {
                 if (lap_lai == true) {
                     Toast.makeText(getApplicationContext(), "Đã tắt chế độ lặp lại"
                             , Toast.LENGTH_SHORT).show();
+
                     lap_lai = false;
+                    ngau_nhien = false;
                 } else if (lap_lai == false) {
+
                     lap_lai = true;
+                    ngau_nhien = false;
                     Toast.makeText(getApplicationContext(), "Đã bật chế độ lặp lại"
                             , Toast.LENGTH_SHORT).show();
                 }
@@ -399,7 +370,7 @@ public class PlayActivity extends AppCompatActivity {
         int min = duration / 1000 / 60;
         int sec = duration / 1000 % 60;
 
-        if (min < 10){
+        if (min < 10) {
             time += "0";
         }
 
@@ -444,10 +415,14 @@ public class PlayActivity extends AppCompatActivity {
 //                seekmusic.setMax(mediaPlayer.getDuration());
 //                seekmusic.setProgress(0);
 
-                Log.e("-----------------", " ket thuc chuyen bai ..........." + lap_lai);
+                Log.e("-----------------", " ket thuc chuyen bai ...........\n" + lap_lai
+                        + "\n" + ngau_nhien);
 
                 // Chức năng lặp lại
                 if (lap_lai == true) {
+
+                    ngau_nhien = false;
+
                     Toast.makeText(getApplicationContext(), "Lặp lại bài hát hiện tại"
                             , Toast.LENGTH_SHORT).show();
 
@@ -471,13 +446,21 @@ public class PlayActivity extends AppCompatActivity {
                     seekmusic.setMax(mediaPlayer.getDuration());
                     seekmusic.setProgress(0);
 
-                } else if (ngau_nhien == true) {
+                    int audiosessionId = mediaPlayer.getAudioSessionId();
+
+                    if (audiosessionId != -1) {
+                        visualizer.setAudioSessionId(audiosessionId);
+                    }
+
+                } else if (ngau_nhien == true) { // phát ngẫu nhiên
+                    lap_lai = false;
+
                     mediaPlayer.stop();
                     mediaPlayer.release();
 
                     Random rand = new Random();
                     int pos = rand.nextInt(mySongs.size());
-                    Log.e("----------------", "........... " + mySongs.size());
+                    Log.e("----------------", "........... " + pos + " ........ " + mySongs.size());
 
                     Uri u = Uri.parse(mySongs.get(pos).toString());
                     mediaPlayer = MediaPlayer.create(getApplicationContext(), u);
@@ -495,15 +478,58 @@ public class PlayActivity extends AppCompatActivity {
                     txtsstop.setText(convert_TIME(mediaPlayer.getDuration()));
                     seekmusic.setMax(mediaPlayer.getDuration());
                     seekmusic.setProgress(0);
+
+                    int audiosessionId = mediaPlayer.getAudioSessionId();
+
+                    if (audiosessionId != -1) {
+                        visualizer.setAudioSessionId(audiosessionId);
+                    }
                 } else {
-                    btnnexxt.performClick();
-                    txtsstop.setText(convert_TIME(mediaPlayer.getDuration()));
-                    seekmusic.setMax(mediaPlayer.getDuration());
-                    seekmusic.setProgress(0);
+                    next_BH();
                 }
 
             }
         });
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        Log.e("------------------", "tam dung ............");
+        finish();
+    }
+
+    private void next_BH() {
+        mediaPlayer.stop();
+        mediaPlayer.release();
+
+        if (position == (mySongs.size() - 1)) {
+            position = 0;
+        } else {
+            position = ((position + 1) % mySongs.size());
+        }
+
+        Uri u = Uri.parse(mySongs.get(position).toString());
+        mediaPlayer = MediaPlayer.create(getApplicationContext(), u);
+
+        sname = mySongs.get(position).getName();
+        txtsname.setText(sname);
+
+        mediaPlayer.start();
+        su_kien();
+
+        btnplay.setBackgroundResource(R.drawable.icon_pause);
+        startAnimation(imageView);
+//                tg kt bh
+        txtsstop.setText(convert_TIME(mediaPlayer.getDuration()));
+        seekmusic.setMax(mediaPlayer.getDuration());
+        seekmusic.setProgress(0);
+
+        int audiosessionId = mediaPlayer.getAudioSessionId();
+
+        if (audiosessionId != -1) {
+                    visualizer.setAudioSessionId(audiosessionId);
+        }
     }
 
 }
