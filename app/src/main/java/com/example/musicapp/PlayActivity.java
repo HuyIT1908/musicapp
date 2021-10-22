@@ -3,7 +3,6 @@ package com.example.musicapp;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.content.Intent;
-import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.media.MediaPlayer;
 import android.net.Uri;
@@ -22,7 +21,6 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.musicapp.DAO.DanhSachChiTietDAO;
-import com.gauravk.audiovisualizer.visualizer.BarVisualizer;
 
 import java.io.File;
 import java.text.DecimalFormat;
@@ -149,6 +147,7 @@ public class PlayActivity extends AppCompatActivity {
 
         mediaPlayer = MediaPlayer.create(getApplicationContext(), uri);
         mediaPlayer.start();
+        su_kien();
 
         btnnexxt.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -168,6 +167,8 @@ public class PlayActivity extends AppCompatActivity {
                 txtsname.setText(sname);
 
                 mediaPlayer.start();
+                su_kien();
+
                 btnplay.setBackgroundResource(R.drawable.icon_pause);
                 startAnimation(imageView);
 //                tg kt bh
@@ -235,7 +236,7 @@ public class PlayActivity extends AppCompatActivity {
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                String currentTime = "0" + createTime(mediaPlayer.getCurrentPosition());
+                String currentTime = createTime(mediaPlayer.getCurrentPosition());
                 String kt = convert_TIME(mediaPlayer.getDuration());
 //                cập nhật thời gian phát bài hát
                 txtsstart.setText(currentTime);
@@ -256,6 +257,7 @@ public class PlayActivity extends AppCompatActivity {
                 } else {
                     btnplay.setBackgroundResource(R.drawable.icon_pause);
                     mediaPlayer.start();
+                    su_kien();
                 }
             }
         });
@@ -282,9 +284,13 @@ public class PlayActivity extends AppCompatActivity {
 
                 Uri u = Uri.parse(mySongs.get(position).toString());
                 mediaPlayer = MediaPlayer.create(getApplicationContext(), u);
+
                 sname = mySongs.get(position).getName();
                 txtsname.setText(sname);
+
                 mediaPlayer.start();
+                su_kien();
+
                 btnplay.setBackgroundResource(R.drawable.icon_pause);
                 startAnimation(imageView);
 
@@ -392,7 +398,13 @@ public class PlayActivity extends AppCompatActivity {
         String time = "";
         int min = duration / 1000 / 60;
         int sec = duration / 1000 % 60;
+
+        if (min < 10){
+            time += "0";
+        }
+
         time += min + ":";
+
         if (sec < 10) {
             time += "0";
         }
@@ -422,19 +434,6 @@ public class PlayActivity extends AppCompatActivity {
         return result;
     }
 
-//    private List<File> get_prorp_file(){
-//        final List<File>[] phu = new List<File>[];
-//        AsyncTask asyncTask = new AsyncTask() {
-//            @Override
-//            protected Object doInBackground(Object[] objects) {
-//                final ArrayList<File> mySongs = findSong(Environment.getExternalStorageDirectory());
-//                phu[0] = mySongs;
-//                return null;
-//            }
-//        };
-//        asyncTask.execute();
-//    }
-
     private void su_kien() {
         //        khi kết thúc bài hát
         mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
@@ -447,7 +446,7 @@ public class PlayActivity extends AppCompatActivity {
 
                 Log.e("-----------------", " ket thuc chuyen bai ..........." + lap_lai);
 
-                // Chức năng lặp lại ( chưa hoàn thiện )
+                // Chức năng lặp lại
                 if (lap_lai == true) {
                     Toast.makeText(getApplicationContext(), "Lặp lại bài hát hiện tại"
                             , Toast.LENGTH_SHORT).show();
@@ -462,6 +461,8 @@ public class PlayActivity extends AppCompatActivity {
                     txtsname.setText(sname);
 
                     mediaPlayer.start();
+                    su_kien();
+
                     btnplay.setBackgroundResource(R.drawable.icon_pause);
                     startAnimation(imageView);
 
@@ -473,6 +474,7 @@ public class PlayActivity extends AppCompatActivity {
                 } else if (ngau_nhien == true) {
                     mediaPlayer.stop();
                     mediaPlayer.release();
+
                     Random rand = new Random();
                     int pos = rand.nextInt(mySongs.size());
                     Log.e("----------------", "........... " + mySongs.size());
@@ -484,6 +486,8 @@ public class PlayActivity extends AppCompatActivity {
                     txtsname.setText(sname);
 
                     mediaPlayer.start();
+                    su_kien();
+
                     btnplay.setBackgroundResource(R.drawable.icon_pause);
                     startAnimation(imageView);
 
