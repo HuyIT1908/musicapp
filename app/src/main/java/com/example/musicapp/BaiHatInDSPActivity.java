@@ -1,16 +1,10 @@
 package com.example.musicapp;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Environment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,10 +19,11 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.example.musicapp.DAO.BaiHatDAO;
 import com.example.musicapp.DAO.DanhSachChiTietDAO;
 import com.example.musicapp.DAO.DanhSachPhatDAO;
-import com.example.musicapp.Fragment_Cua_Home.HomeFragment;
 import com.example.musicapp.Models.BaiHat;
 import com.example.musicapp.Models.DanhSachChiTiet;
 import com.example.musicapp.Models.DanhSachPhat;
@@ -36,7 +31,6 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class BaiHatInDSPActivity extends AppCompatActivity {
@@ -92,11 +86,13 @@ public class BaiHatInDSPActivity extends AppCompatActivity {
                 List<BaiHat> list = baiHatDAO.getAll();
 
                 List<String> tenBH = new ArrayList<>();
-                for (int i = 0; i < list.size(); i++) {
-                    tenBH.add(list.get(i).getTenBaiHat().toString() );
+
+                for (BaiHat i: list){
+
+                    tenBH.add( i.getTenBaiHat().toString() );
                 }
 
-                Collections.reverse(tenBH);
+//                Collections.reverse(tenBH);
                 ArrayAdapter arrayAdapter = new ArrayAdapter(getApplicationContext(),
                         android.R.layout.simple_spinner_item,
                         tenBH
@@ -133,25 +129,40 @@ public class BaiHatInDSPActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View v) {
 
-//                        items = danhSachChiTietDAO.get_ID_DSP( get_ID_DSP(name_DSP) );
-                        items.add( tenBH.get(index_TenBH) );
-
-                        DanhSachChiTiet danhSachChiTiet = new DanhSachChiTiet(
-                                get_ID_Bai_hat( tenBH.get(index_TenBH) ),
-                                get_ID_DSP(name_DSP)
-                        );
-                        long kq = danhSachChiTietDAO.insert_Danh_Sach_CT(danhSachChiTiet);
-                        if (kq > 0) {
+                        if ( tenBH.size() == 0 ){
                             Toast.makeText(getApplicationContext(),
-                                    "Thêm thành công",
-                                    Toast.LENGTH_SHORT).show();
-                            if (danhSachChiTietDAO.get_ID_DSP( get_ID_DSP(name_DSP) ).size() == 0 ){
-                                danhSachChiTietDAO.insert_Danh_Sach_CT(danhSachChiTiet);
-                            }
-                        }
+                                    "Không còn bài hát để thêm !!! "
+                                    , Toast.LENGTH_SHORT).show();
+                            alertDialog.dismiss();
+                        } else {
+                            if ( items.contains( tenBH.get(index_TenBH) ) ){
+                                Toast.makeText(getApplicationContext(),
+                                        "Bài hát đã tồn tại ! ..."
+                                        , Toast.LENGTH_SHORT).show();
+                                alertDialog.dismiss();
+                            } else {
+                                //                        items = danhSachChiTietDAO.get_ID_DSP( get_ID_DSP(name_DSP) );
+                                items.add( tenBH.get(index_TenBH) );
 
-                        hien_bai_hat();
-                        alertDialog.dismiss();
+                                DanhSachChiTiet danhSachChiTiet = new DanhSachChiTiet(
+                                        get_ID_Bai_hat( tenBH.get(index_TenBH) ),
+                                        get_ID_DSP(name_DSP)
+                                );
+                                long kq = danhSachChiTietDAO.insert_Danh_Sach_CT(danhSachChiTiet);
+                                if (kq > 0) {
+                                    Toast.makeText(getApplicationContext(),
+                                            "Thêm thành công",
+                                            Toast.LENGTH_SHORT).show();
+                                    if (danhSachChiTietDAO.get_ID_DSP( get_ID_DSP(name_DSP) ).size() == 0 ){
+                                        danhSachChiTietDAO.insert_Danh_Sach_CT(danhSachChiTiet);
+                                    }
+                                }
+
+                                hien_bai_hat();
+                                alertDialog.dismiss();
+                            }
+
+                        } // end het bai hat
                     }
                 });
             }

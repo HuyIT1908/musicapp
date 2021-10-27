@@ -27,7 +27,6 @@ import java.io.File;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
@@ -119,7 +118,7 @@ public class PlayActivity extends AppCompatActivity {
             }
         }
 
-        Collections.reverse(fileList);
+//        Collections.reverse(fileList);
 
 //        for (File i: fileList){
 //            Log.e("----------------", " ................. " + "\n" + i.getName()
@@ -438,13 +437,13 @@ public class PlayActivity extends AppCompatActivity {
                     mediaPlayer.start();
                     su_kien();
 
-                    btnplay.setBackgroundResource(R.drawable.icon_pause);
-                    startAnimation(imageView);
-
                     //                tg kt bh
                     txtsstop.setText(convert_TIME(mediaPlayer.getDuration()));
                     seekmusic.setMax(mediaPlayer.getDuration());
                     seekmusic.setProgress(0);
+
+                    btnplay.setBackgroundResource(R.drawable.icon_pause);
+                    startAnimation(imageView);
 
                     int audiosessionId = mediaPlayer.getAudioSessionId();
 

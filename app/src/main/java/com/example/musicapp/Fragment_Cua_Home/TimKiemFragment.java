@@ -1,18 +1,14 @@
 package com.example.musicapp.Fragment_Cua_Home;
 
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
-import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -20,14 +16,11 @@ import android.widget.Toast;
 import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 
-import com.example.musicapp.DAO.BaiHatDAO;
-import com.example.musicapp.Models.BaiHat;
 import com.example.musicapp.PlayActivity;
 import com.example.musicapp.R;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 /**
@@ -147,6 +140,7 @@ public class TimKiemFragment extends Fragment {
 
         items = new ArrayList<>();
         List<String> ten_bai_hat = new ArrayList<>();
+
         for (int i = 0; i < mySongs.size(); i++) {
 //            items[i] = mySongs.get(i).getName().toString().replace(".mp3", "");
             items.add(mySongs.get(i).getName().toString().replace(".mp3", "") );
@@ -181,6 +175,9 @@ public class TimKiemFragment extends Fragment {
                     items.addAll(tim_kiem(query , tk_list) );
                     hien_danh_sach();
                 }else {
+                    items.clear();
+                    items.addAll(tk_list);
+                    hien_danh_sach();
                     Toast.makeText(getContext(), "Không được để trống nha", Toast.LENGTH_SHORT).show();
                 }
                 return false;
@@ -193,6 +190,9 @@ public class TimKiemFragment extends Fragment {
                     items.addAll(tim_kiem(newText , tk_list) );
                     hien_danh_sach();
                 }else {
+                    items.clear();
+                    items.addAll(tk_list);
+                    hien_danh_sach();
                     Toast.makeText(getContext(), "Không được để trống nha", Toast.LENGTH_SHORT).show();
                 }
                 return false;
@@ -234,6 +234,7 @@ public class TimKiemFragment extends Fragment {
 
     private List<String> tim_kiem(String bh , List<String> list){
         List<String> save_list = new ArrayList<>();
+
         for (int i = 0; i < list.size(); i++) {
             if ( list.get(i).toString().toLowerCase().contains( bh.toLowerCase().toString() ) ){
                    save_list.add( list.get(i).toString() );
